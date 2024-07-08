@@ -86,6 +86,7 @@ final class MovieQuizViewController: UIViewController {
     }
     
     private func show(quiz step: QuizStepViewModel) {
+        resetImageViewBorder()
         imageView.image = step.image
         textLabel.text = step.question
         counterLabel.text = step.questionNumber
@@ -133,7 +134,14 @@ final class MovieQuizViewController: UIViewController {
         }
     }
     
+    private func resetImageViewBorder() {
+            imageView.layer.masksToBounds = true
+            imageView.layer.borderWidth = 0
+            imageView.layer.borderColor = UIColor.clear.cgColor
+        }
+    
     private func show(quiz result: QuizResultsViewModel) {
+        resetImageViewBorder()
         let alert = UIAlertController(
             title: result.title,
             message: result.text,
