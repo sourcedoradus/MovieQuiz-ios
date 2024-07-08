@@ -135,10 +135,10 @@ final class MovieQuizViewController: UIViewController {
     }
     
     private func resetImageViewBorder() {
-            imageView.layer.masksToBounds = true
-            imageView.layer.borderWidth = 0
-            imageView.layer.borderColor = UIColor.clear.cgColor
-        }
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderWidth = 0
+        imageView.layer.borderColor = UIColor.clear.cgColor
+    }
     
     private func show(quiz result: QuizResultsViewModel) {
         resetImageViewBorder()
