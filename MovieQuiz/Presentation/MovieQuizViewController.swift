@@ -1,5 +1,23 @@
 import UIKit
 
+struct QuizQuestion {
+    let image: String
+    let text: String
+    let correctAnswer: Bool
+}
+
+struct QuizStepViewModel {
+    let image: UIImage
+    let question: String
+    let questionNumber: String
+}
+
+struct QuizResultsViewModel {
+    let title: String
+    let text: String
+    let buttonText: String
+}
+
 final class MovieQuizViewController: UIViewController {
     
     @IBOutlet private weak var imageView: UIImageView!
@@ -57,24 +75,6 @@ final class MovieQuizViewController: UIViewController {
         let currentQuestion = questions[currentQuestionIndex]
         let currentStepViewModel = convert(model: currentQuestion)
         show(quiz: currentStepViewModel)
-    }
-    
-    struct QuizQuestion {
-        let image: String
-        let text: String
-        let correctAnswer: Bool
-    }
-    
-    struct QuizStepViewModel {
-        let image: UIImage
-        let question: String
-        let questionNumber: String
-    }
-    
-    struct QuizResultsViewModel {
-        let title: String
-        let text: String
-        let buttonText: String
     }
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
