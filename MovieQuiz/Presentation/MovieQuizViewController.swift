@@ -119,15 +119,15 @@ final class MovieQuizViewController: UIViewController {
     }
     
     private func givenAnswer(answer: Bool) {
-            let currentQuestion = questions[currentQuestionIndex]
-            let isCorrect = (answer == currentQuestion.correctAnswer)
-            showAnswerResult(isCorrect: isCorrect)
-        }
+        let currentQuestion = questions[currentQuestionIndex]
+        let isCorrect = (answer == currentQuestion.correctAnswer)
+        showAnswerResult(isCorrect: isCorrect)
+    }
     
     private func setButtonsEnabled(_ isEnabled: Bool) {
-            yesButton.isEnabled = isEnabled
-            noButton.isEnabled = isEnabled
-        }
+        yesButton.isEnabled = isEnabled
+        noButton.isEnabled = isEnabled
+    }
     
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questions.count - 1 {
