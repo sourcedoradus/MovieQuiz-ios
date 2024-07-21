@@ -109,13 +109,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questionsAmount - 1 {
-            let text = correctAnswers == questionsAmount ?
-            "Поздравляем, вы ответили на 10 из 10!" :
-            "Вы ответили на \(correctAnswers) из 10, попробуйте ещё раз!"
+            statisticService.store(correct: correctAnswers, total: questionsAmount, date: Date())
+
             let viewModel = QuizResultsViewModel(
                 title: "Этот раунд окончен!",
-                text: text,
-                buttonText: "Сыграть ещё раз")
+                buttonText: "Сыграть ещё раз"
+            )
             show(quiz: viewModel)
         } else {
             currentQuestionIndex += 1
@@ -130,25 +129,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         imageView.layer.borderColor = UIColor.clear.cgColor
     }
     
-//    private func show(quiz result: QuizResultsViewModel) {
-//        resetImageViewBorder()
-//        
-//        let alertModel = AlertModel(
-//            title: result.title,
-//            message: result.text,
-//            buttonText: result.buttonText,
-//            completion: { [weak self] in
-//                guard let self = self else { return }
-//                
-//                self.currentQuestionIndex = 0
-//                self.correctAnswers = 0
-//                self.questionFactory?.requestNextQuestion()
-//            }
-//        )
-//        
-//        alertPresenter?.showAlert(model: alertModel)
-//    }
-    
     private func show(quiz result: QuizResultsViewModel) {
         resetImageViewBorder()
         
@@ -157,9 +137,9 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         let totalAccuracy = statisticService.totalAccuracy
         
         let message = """
-        Ваш результат: \(correctAnswers)/\(questionsAmount)\n
-        Количество сыгранных квизов: \(gamesCount)\n
-        Рекорд: \(bestGame.correct)/\(bestGame.total) (\(bestGame.date.dateTimeString))\n
+        Ваш результат: \(correctAnswers)/\(questionsAmount)
+        Количество сыгранных квизов: \(gamesCount)
+        Рекорд: \(bestGame.correct)/\(bestGame.total) (\(bestGame.date.dateTimeString))
         Средняя точность: \(String(format: "%.2f", totalAccuracy))%
         """
         
