@@ -14,6 +14,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertPresenter?
+    private var statisticService: StatisticServiceProtocol = StatisticService()
     
     // MARK: - Lifecycle
     
@@ -24,6 +25,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         questionFactory?.requestNextQuestion()
         
         alertPresenter = AlertPresenter(delegate: self)
+        statisticService = StatisticService()
     }
     
     // MARK: - QuestionFactoryDelegate
@@ -128,12 +130,42 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         imageView.layer.borderColor = UIColor.clear.cgColor
     }
     
+//    private func show(quiz result: QuizResultsViewModel) {
+//        resetImageViewBorder()
+//        
+//        let alertModel = AlertModel(
+//            title: result.title,
+//            message: result.text,
+//            buttonText: result.buttonText,
+//            completion: { [weak self] in
+//                guard let self = self else { return }
+//                
+//                self.currentQuestionIndex = 0
+//                self.correctAnswers = 0
+//                self.questionFactory?.requestNextQuestion()
+//            }
+//        )
+//        
+//        alertPresenter?.showAlert(model: alertModel)
+//    }
+    
     private func show(quiz result: QuizResultsViewModel) {
         resetImageViewBorder()
         
+        let gamesCount = statisticService.gamesCount
+        let bestGame = statisticService.bestGame
+        let totalAccuracy = statisticService.totalAccuracy
+        
+        let message = """
+        Ваш результат: \(correctAnswers)/\(questionsAmount)\n
+        Количество сыгранных квизов: \(gamesCount)\n
+        Рекорд: \(bestGame.correct)/\(bestGame.total) (\(bestGame.date.dateTimeString))\n
+        Средняя точность: \(String(format: "%.2f", totalAccuracy))%
+        """
+        
         let alertModel = AlertModel(
             title: result.title,
-            message: result.text,
+            message: message,
             buttonText: result.buttonText,
             completion: { [weak self] in
                 guard let self = self else { return }
