@@ -68,17 +68,4 @@ final class StatisticService: StatisticServiceProtocol {
             bestGame = newGameResult
         }
     }
-    
-    func clearStatistics() {
-        storage.removeObject(forKey: Keys.correctAnswers.rawValue)
-        storage.removeObject(forKey: Keys.bestGameCorrect.rawValue)
-        storage.removeObject(forKey: Keys.bestGameTotal.rawValue)
-        storage.removeObject(forKey: Keys.bestGameDate.rawValue)
-        storage.removeObject(forKey: Keys.gamesCount.rawValue)
-        
-        // Сбрасываем значения в памяти
-        correctAnswers = 0
-        gamesCount = 0
-        bestGame = GameResult(correct: 0, total: 0, date: Date())
-    }
 }
