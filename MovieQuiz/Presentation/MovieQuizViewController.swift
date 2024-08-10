@@ -19,16 +19,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     
     // MARK: - Lifecycle
     
-    //    override func viewDidLoad() {
-    //        super.viewDidLoad()
-    //
-    //        questionFactory = QuestionFactory(delegate: self)
-    //        questionFactory?.requestNextQuestion()
-    //
-    //        alertPresenter = AlertPresenter(delegate: self)
-    //        statisticService = StatisticService()
-    //    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,12 +48,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     }
     
     func didLoadDataFromServer() {
-        activityIndicator.isHidden = true // скрываем индикатор загрузки
+        activityIndicator.isHidden = true
         questionFactory?.requestNextQuestion()
     }
     
     func didFailToLoadData(with error: Error) {
-        showNetworkError(message: error.localizedDescription) // возьмём в качестве сообщения описание ошибки
+        showNetworkError(message: error.localizedDescription)
     }
     
     // MARK: - AlertPresenterDelegate
@@ -152,46 +142,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         imageView.layer.borderColor = UIColor.clear.cgColor
     }
     
-//    private func show(quiz result: QuizResultsViewModel) {
-//        resetImageViewBorder()
-//        
-//        let gamesCount = statisticService.gamesCount
-//        let bestGame = statisticService.bestGame
-//        let totalAccuracy = statisticService.totalAccuracy
-//        
-//        let message = """
-//        Ваш результат: \(correctAnswers)/\(questionsAmount)
-//        Количество сыгранных квизов: \(gamesCount)
-//        Рекорд: \(bestGame.correct)/\(bestGame.total) (\(bestGame.date.dateTimeString))
-//        Средняя точность: \(String(format: "%.2f", totalAccuracy))%
-//        """
-//        
-//        let alertModel = AlertModel(
-//            title: result.title,
-//            message: message,
-//            buttonText: result.buttonText,
-//            completion: { [weak self] in
-//                guard let self = self else { return }
-//                
-//                self.currentQuestionIndex = 0
-//                self.correctAnswers = 0
-//                self.questionFactory?.requestNextQuestion()
-//            }
-//        )
-//        
-//        alertPresenter?.showAlert(model: alertModel)
-//    }
-    
     private func show(quiz result: QuizResultsViewModel) {
-        print("DEBUG: Метод show(quiz result:) вызван")
-        
         resetImageViewBorder()
         
         let gamesCount = statisticService.gamesCount
         let bestGame = statisticService.bestGame
         let totalAccuracy = statisticService.totalAccuracy
-        
-        print("DEBUG: Статистика получена - игр: \(gamesCount), лучший результат: \(bestGame.correct)/\(bestGame.total)")
         
         let message = """
         Ваш результат: \(correctAnswers)/\(questionsAmount)
@@ -200,14 +156,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         Средняя точность: \(String(format: "%.2f", totalAccuracy))%
         """
         
-        print("DEBUG: Сообщение для алерта сформировано")
-        
         let alertModel = AlertModel(
             title: result.title,
             message: message,
             buttonText: result.buttonText,
             completion: { [weak self] in
-                print("DEBUG: Кнопка алерта нажата")
                 guard let self = self else { return }
                 
                 self.currentQuestionIndex = 0
@@ -216,14 +169,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
             }
         )
         
-        print("DEBUG: AlertModel создан, пытаемся показать алерт")
-        
-        if let alertPresenter = alertPresenter {
-            alertPresenter.showAlert(model: alertModel)
-            print("DEBUG: Метод showAlert вызван у alertPresenter")
-        } else {
-            print("ERROR: alertPresenter is nil")
-        }
+        alertPresenter?.showAlert(model: alertModel)
     }
     
     private func showLoadingIndicator() {
