@@ -182,8 +182,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
         activityIndicator.stopAnimating()
         
         let alertModel = AlertModel(
-            title: "Ошибка",
-            message: message,
+            title: "Что-то пошло не так(",
+            message: "Невозможно загрузить данные",
             buttonText: "Попробовать ещё раз",
             completion: { [weak self] in
                 guard let self = self else { return }
