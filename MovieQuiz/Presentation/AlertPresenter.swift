@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class AlertPresenter {
+final class AlertPresenter {
     weak var delegate: AlertPresenterDelegate?
     
     init(delegate: AlertPresenterDelegate) {
