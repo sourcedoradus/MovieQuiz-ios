@@ -111,10 +111,15 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="VEu-MW-7BY">
+                                <rect key="frame" x="205" y="456" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
+                            <constraint firstItem="VEu-MW-7BY" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="2g5-N7-iW1"/>
+                            <constraint firstItem="VEu-MW-7BY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EfS-0H-vjy"/>
                             <constraint firstItem="uOF-ov-Qoe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Sh2-4l-3os"/>
                             <constraint firstItem="uOF-ov-Qoe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="sf1-bG-rEL"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="uOF-ov-Qoe" secondAttribute="bottom" id="yGN-68-K0e"/>
@@ -122,6 +127,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="VEu-MW-7BY" id="1gZ-iE-e8h"/>
                         <outlet property="counterLabel" destination="EjN-f0-YeK" id="d8c-p3-HBW"/>
                         <outlet property="imageView" destination="Svb-yL-iov" id="OMl-oF-fYd"/>
                         <outlet property="noButton" destination="tiK-rH-BA6" id="9BJ-qF-n3e"/>
