@@ -38,29 +38,45 @@ final class MovieQuizPresenter {
     
     // MARK: - Action buttons logic
     
-//    func yesButtonClicked(_ sender: UIButton) {
-//        givenAnswer(answer: true)
-//        setButtonsEnabled(false)
-//    }
-//    
-//    func noButtonClicked(_ sender: UIButton) {
-//        givenAnswer(answer: false)
-//        setButtonsEnabled(false)
-//    }
-//    
-//    func givenAnswer(answer: Bool) {
-//        guard let currentQuestion = currentQuestion else {
-//            return
-//        }
-//        let isCorrect = (answer == currentQuestion.correctAnswer)
-//        showAnswerResult(isCorrect: isCorrect)
-//    }
+    //    func yesButtonClicked(_ sender: UIButton) {
+    //        givenAnswer(answer: true)
+    //        setButtonsEnabled(false)
+    //    }
+    //
+    //    func noButtonClicked(_ sender: UIButton) {
+    //        givenAnswer(answer: false)
+    //        setButtonsEnabled(false)
+    //    }
+    //
+    //    func givenAnswer(answer: Bool) {
+    //        guard let currentQuestion = currentQuestion else {
+    //            return
+    //        }
+    //        let isCorrect = (answer == currentQuestion.correctAnswer)
+    //        showAnswerResult(isCorrect: isCorrect)
+    //    }
     
     func givenAnswer(answer: Bool) {
-            guard let currentQuestion = currentQuestion else {
-                return
-            }
-            let isCorrect = (answer == currentQuestion.correctAnswer)
-            viewController?.showAnswerResult(isCorrect: isCorrect)
+        guard let currentQuestion = currentQuestion else {
+            return
         }
+        let isCorrect = (answer == currentQuestion.correctAnswer)
+        viewController?.showAnswerResult(isCorrect: isCorrect)
+    }
+    
+    func didReceiveNextQuestion(question: QuizQuestion?) {
+        guard let question = question else {
+            return
+        }
+        
+        //  currentQuestion = question
+        currentQuestion = question
+        //    let viewModel = convert(model: question)
+        let viewModel = convert(model: question)
+        
+        DispatchQueue.main.async { [weak self] in
+           // self?.show(quiz: viewModel)
+            self?.viewController?.show(quiz: viewModel)
+        }
+    }
 }

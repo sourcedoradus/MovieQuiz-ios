@@ -37,18 +37,19 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     // MARK: - QuestionFactoryDelegate
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
-        guard let question = question else {
-            return
-        }
-        
-      //  currentQuestion = question
-        presenter.currentQuestion = question
-    //    let viewModel = convert(model: question)
-        let viewModel = presenter.convert(model: question)
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.show(quiz: viewModel)
-        }
+    presenter.didReceiveNextQuestion(question: question)
+//        guard let question = question else {
+//            return
+//        }
+//        
+//      //  currentQuestion = question
+//        presenter.currentQuestion = question
+//    //    let viewModel = convert(model: question)
+//        let viewModel = presenter.convert(model: question)
+//        
+//        DispatchQueue.main.async { [weak self] in
+//            self?.show(quiz: viewModel)
+//        }
     }
     
     func didLoadDataFromServer() {
@@ -89,7 +90,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
 //            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
 //    }
     
-    private func show(quiz step: QuizStepViewModel) {
+    func show(quiz step: QuizStepViewModel) {
         resetImageViewBorder()
         imageView.image = step.image
         textLabel.text = step.question
