@@ -12,6 +12,10 @@ final class MovieQuizPresenter {
     
     let questionsAmount: Int = 10
     private var currentQuestionIndex: Int = 0
+    var currentQuestion: QuizQuestion?
+    weak var viewController: MovieQuizViewController?
+    
+    // MARK: - Question presenter
     
     func isLastQuestion() -> Bool {
         currentQuestionIndex == questionsAmount - 1
@@ -31,4 +35,32 @@ final class MovieQuizPresenter {
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
+    
+    // MARK: - Action buttons logic
+    
+//    func yesButtonClicked(_ sender: UIButton) {
+//        givenAnswer(answer: true)
+//        setButtonsEnabled(false)
+//    }
+//    
+//    func noButtonClicked(_ sender: UIButton) {
+//        givenAnswer(answer: false)
+//        setButtonsEnabled(false)
+//    }
+//    
+//    func givenAnswer(answer: Bool) {
+//        guard let currentQuestion = currentQuestion else {
+//            return
+//        }
+//        let isCorrect = (answer == currentQuestion.correctAnswer)
+//        showAnswerResult(isCorrect: isCorrect)
+//    }
+    
+    func givenAnswer(answer: Bool) {
+            guard let currentQuestion = currentQuestion else {
+                return
+            }
+            let isCorrect = (answer == currentQuestion.correctAnswer)
+            viewController?.showAnswerResult(isCorrect: isCorrect)
+        }
 }
