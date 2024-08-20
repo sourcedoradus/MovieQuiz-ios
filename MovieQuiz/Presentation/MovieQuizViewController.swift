@@ -23,12 +23,10 @@ final class MovieQuizViewController: UIViewController {
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         presenter.yesButtonClicked()
-     //   setButtonsEnabled(false)
     }
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         presenter.noButtonClicked()
-    //    setButtonsEnabled(false)
     }
     
     // MARK: - Functions
