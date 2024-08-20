@@ -31,42 +31,6 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     // MARK: - QuestionFactoryDelegate
     
-    //    func didReceiveNextQuestion(question: QuizQuestion?) {
-    //        presenter.didReceiveNextQuestion(question: question)
-    //    }
-    
-    //    init(viewController: MovieQuizViewController) {
-    //            self.viewController = viewController
-    //
-    //            questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
-    //            questionFactory?.loadData()
-    //       //     viewController.showLoadingIndicator()
-    //        }
-    
-    //    func didReceiveNextQuestion(question: QuizQuestion?) {
-    //        guard let question = question else {
-    //            return
-    //        }
-    //
-    //        currentQuestion = question
-    //        let viewModel = convert(model: question)
-    //
-    //        DispatchQueue.main.async { [weak self] in
-    //            self?.viewController?.show(quiz: viewModel)
-    //        }
-    //    }
-    //
-    //    func didLoadDataFromServer() {
-    //        //   activityIndicator.isHidden = true
-    //        viewController?.hideLoadingIndicator()
-    //        questionFactory?.requestNextQuestion()
-    //    }
-    //
-    //    func didFailToLoadData(with error: Error) {
-    //        viewController?.showNetworkError(message: error.localizedDescription)
-    //    }
-    
-    
     func didLoadDataFromServer() {
         viewController?.hideLoadingIndicator()
         questionFactory?.requestNextQuestion()
@@ -95,36 +59,24 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         currentQuestionIndex == questionsAmount - 1
     }
     
-    //    func givenAnswer(answer: Bool) {
-    //        guard let currentQuestion = currentQuestion else {
-    //            return
-    //        }
-    //        let isCorrect = (answer == currentQuestion.correctAnswer)
-    //        viewController?.showAnswerResult(isCorrect: isCorrect)
-    //    }
-    
     func didAnswer(isCorrectAnswer: Bool) {
+        viewController?.setButtonsEnabled(false)
         if isCorrectAnswer {
             correctAnswers += 1
         }
     }
     
     func restartGame() {
+        viewController?.setButtonsEnabled(true)
         currentQuestionIndex = 0
         correctAnswers = 0
         questionFactory?.requestNextQuestion()
     }
     
     func switchToNextQuestion() {
+        viewController?.setButtonsEnabled(true)
         currentQuestionIndex += 1
     }
-    
-    //    func convert(model: QuizQuestion) -> QuizStepViewModel {
-    //        return QuizStepViewModel(
-    //            image: UIImage(data: model.image) ?? UIImage(),
-    //            question: model.text,
-    //            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
-    //    }
     
     func convert(model: QuizQuestion) -> QuizStepViewModel {
         QuizStepViewModel(
@@ -142,7 +94,26 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         didAnswer(isYes: false)
     }
     
-    // этот метод странно дублирует другой выше с таким же названием
+    func makeResultsMessage() -> String {
+        statisticService.store(correct: correctAnswers, total: questionsAmount, date: Date())
+        
+        let bestGame = statisticService.bestGame
+        
+        let totalPlaysCountLine = "Количество сыгранных квизов: \(statisticService.gamesCount)"
+        let currentGameResultLine = "Ваш результат: \(correctAnswers)/\(questionsAmount)"
+        let bestGameInfoLine = "Рекорд: \(bestGame.correct)/\(bestGame.total)"
+        + " (\(bestGame.date.dateTimeString))"
+        let averageAccuracyLine = "Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%"
+        
+        let resultMessage = [
+            currentGameResultLine, totalPlaysCountLine, bestGameInfoLine, averageAccuracyLine
+        ].joined(separator: "\n")
+        
+        return resultMessage
+    }
+    
+    // MARK: - Private functions
+    
     private func didAnswer(isYes: Bool) {
         guard let currentQuestion = currentQuestion else {
             return
@@ -180,64 +151,4 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
             questionFactory?.requestNextQuestion()
         }
     }
-    
-    func makeResultsMessage() -> String {
-     //   statisticService.store(correct: correctAnswers, total: questionsAmount)
-        statisticService.store(correct: correctAnswers, total: questionsAmount, date: Date())
-        
-        let bestGame = statisticService.bestGame
-        
-        let totalPlaysCountLine = "Количество сыгранных квизов: \(statisticService.gamesCount)"
-        let currentGameResultLine = "Ваш результат: \(correctAnswers)/\(questionsAmount)"
-        //            Ваш результат: \(correctAnswers)/\(questionsAmount)
-
-        let bestGameInfoLine = "Рекорд: \(bestGame.correct)/\(bestGame.total)"
-        + " (\(bestGame.date.dateTimeString))"
-        let averageAccuracyLine = "Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%"
-        
-        let resultMessage = [
-            currentGameResultLine, totalPlaysCountLine, bestGameInfoLine, averageAccuracyLine
-        ].joined(separator: "\n")
-        
-        return resultMessage
-    }
-    
-    // MARK: - неразобранное
-    
-    //    func resetQuestionIndex() {
-    //        currentQuestionIndex = 0
-    //    }
-    
-    //    func showNextQuestionOrResults() {
-    //        if isLastQuestion() {
-    //            statisticService.store(correct: correctAnswers, total: questionsAmount, date: Date())
-    //            
-    //            let gamesCount = statisticService.gamesCount
-    //            let bestGame = statisticService.bestGame
-    //            let totalAccuracy = statisticService.totalAccuracy
-    //            let questionsAmount = questionsAmount
-    //            
-    //            let message = """
-    //            Ваш результат: \(correctAnswers)/\(questionsAmount)
-    //            Количество сыгранных квизов: \(gamesCount)
-    //            Рекорд: \(bestGame.correct)/\(bestGame.total) (\(bestGame.date.dateTimeString))
-    //            Средняя точность: \(String(format: "%.2f", totalAccuracy))%
-    //            """
-    //            
-    //            let viewModel = QuizResultsViewModel(
-    //                title: "Этот раунд окончен!",
-    //                message: message,
-    //                buttonText: "Сыграть ещё раз"
-    //            )
-    //            
-    //            viewController?.show(quiz: viewModel)
-    //            
-    //        } else {
-    //            switchToNextQuestion()
-    //            self.questionFactory?.requestNextQuestion()
-    //        }
-    //        viewController?.setButtonsEnabled(true)
-    //    }
-    
-    
 }
