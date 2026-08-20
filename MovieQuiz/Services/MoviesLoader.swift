@@ -11,6 +11,20 @@ protocol MoviesLoading {
     func loadMovies(handler: @escaping (Result<MostPopularMovies, Error>) -> Void)
 }
 
+enum MoviesLoaderError: LocalizedError {
+    case apiMessage(String)
+    case emptyList
+    
+    var errorDescription: String? {
+        switch self {
+        case .apiMessage(let message):
+            return message
+        case .emptyList:
+            return "Список фильмов пуст"
+        }
+    }
+}
+
 struct MoviesLoader: MoviesLoading {
     
     // MARK: - NetworkClient
@@ -36,6 +50,14 @@ struct MoviesLoader: MoviesLoading {
             case .success(let data):
                 do {
                     let mostPopularMovies = try JSONDecoder().decode(MostPopularMovies.self, from: data)
+                    if !mostPopularMovies.errorMessage.isEmpty {
+                        handler(.failure(MoviesLoaderError.apiMessage(mostPopularMovies.errorMessage)))
+                        return
+                    }
+                    if mostPopularMovies.items.isEmpty {
+                        handler(.failure(MoviesLoaderError.emptyList))
+                        return
+                    }
                     handler(.success(mostPopularMovies))
                 } catch {
                     handler(.failure(error))

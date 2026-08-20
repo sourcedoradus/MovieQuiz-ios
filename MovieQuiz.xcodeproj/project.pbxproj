@@ -24,6 +24,7 @@
 		514155CC2C723FEA001345FF /* MovieQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514155CB2C723FEA001345FF /* MovieQuizUITests.swift */; };
 		514AA3B32C73561E00BC9285 /* MovieQuizPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514AA3B22C73561E00BC9285 /* MovieQuizPresenter.swift */; };
 		514AA3B92C7562AF00BC9285 /* ConvertTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514AA3B82C7562AF00BC9285 /* ConvertTest.swift */; };
+		51C0DE012C75640000BC9285 /* StatisticServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C0DE002C75640000BC9285 /* StatisticServiceTests.swift */; };
 		514AA3BB2C75631600BC9285 /* MovieQuizViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514AA3BA2C75631600BC9285 /* MovieQuizViewControllerProtocol.swift */; };
 		51A0ABD42C317A7200841246 /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 51A0ABD22C317A7200841246 /* YS Display-Bold.ttf */; };
 		51A0ABD52C317A7200841246 /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 51A0ABD32C317A7200841246 /* YS Display-Medium.ttf */; };
@@ -75,6 +76,7 @@
 		514155CB2C723FEA001345FF /* MovieQuizUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizUITests.swift; sourceTree = "<group>"; };
 		514AA3B22C73561E00BC9285 /* MovieQuizPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizPresenter.swift; sourceTree = "<group>"; };
 		514AA3B82C7562AF00BC9285 /* ConvertTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertTest.swift; sourceTree = "<group>"; };
+		51C0DE002C75640000BC9285 /* StatisticServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticServiceTests.swift; sourceTree = "<group>"; };
 		514AA3BA2C75631600BC9285 /* MovieQuizViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizViewControllerProtocol.swift; sourceTree = "<group>"; };
 		51A0ABD22C317A7200841246 /* YS Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Bold.ttf"; sourceTree = "<group>"; };
 		51A0ABD32C317A7200841246 /* YS Display-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Medium.ttf"; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				514155C12C69283E001345FF /* ArrayTests.swift */,
 				514155C32C692BD1001345FF /* MoviesLoaderTests.swift */,
 				514AA3B82C7562AF00BC9285 /* ConvertTest.swift */,
+				51C0DE002C75640000BC9285 /* StatisticServiceTests.swift */,
 			);
 			path = MovieQuizTests;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				514AA3B92C7562AF00BC9285 /* ConvertTest.swift in Sources */,
+				51C0DE012C75640000BC9285 /* StatisticServiceTests.swift in Sources */,
 				514155C22C69283E001345FF /* ArrayTests.swift in Sources */,
 				514155C42C692BD1001345FF /* MoviesLoaderTests.swift in Sources */,
 			);
@@ -662,7 +666,7 @@
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -692,7 +696,7 @@
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -11,11 +11,21 @@ protocol NetworkRouting {
     func fetch(url: URL, handler: @escaping (Result<Data, Error>) -> Void)
 }
 
-struct NetworkClient: NetworkRouting {
+enum NetworkError: LocalizedError {
+    case codeError
+    case emptyData
     
-    private enum NetworkError: Error {
-        case codeError
+    var errorDescription: String? {
+        switch self {
+        case .codeError:
+            return "Ошибка ответа сервера"
+        case .emptyData:
+            return "Пустой ответ сервера"
+        }
     }
+}
+
+struct NetworkClient: NetworkRouting {
     
     func fetch(url: URL, handler: @escaping (Result<Data, Error>) -> Void) {
         let request = URLRequest(url: url)
@@ -32,7 +42,11 @@ struct NetworkClient: NetworkRouting {
                 return
             }
             
-            guard let data = data else { return }
+            guard let data = data, !data.isEmpty else {
+                handler(.failure(NetworkError.emptyData))
+                return
+            }
+            
             handler(.success(data))
         }
         
