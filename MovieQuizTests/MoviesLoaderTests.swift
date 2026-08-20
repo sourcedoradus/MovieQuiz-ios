@@ -102,4 +102,35 @@ class MoviesLoaderTests: XCTestCase {
         
         waitForExpectations(timeout: 1)
     }
+    
+    func testApiErrorMessage() throws {
+        let stubNetworkClient = StubNetworkClientWithAPIError()
+        let loader = MoviesLoader(networkClient: stubNetworkClient)
+        
+        let expectation = expectation(description: "API error expectation")
+        
+        loader.loadMovies { result in
+            switch result {
+            case .failure(let error):
+                XCTAssertEqual(error.localizedDescription, "Invalid API key")
+                expectation.fulfill()
+            case .success:
+                XCTFail("Expected API error")
+            }
+        }
+        
+        waitForExpectations(timeout: 1)
+    }
+}
+
+private struct StubNetworkClientWithAPIError: NetworkRouting {
+    func fetch(url: URL, handler: @escaping (Result<Data, Error>) -> Void) {
+        let json = """
+        {
+           "errorMessage" : "Invalid API key",
+           "items" : []
+        }
+        """
+        handler(.success(json.data(using: .utf8) ?? Data()))
+    }
 }
